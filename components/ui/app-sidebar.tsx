@@ -55,7 +55,7 @@ export function AppSidebar() {
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>
-            <h1 className="text-md font-bold">The Cypher Hub</h1>
+            <h1 className="text-md font-bold">Tanya's Blog</h1>
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>

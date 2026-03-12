@@ -60,7 +60,7 @@ export const NotificationEmail = ({
                   style={headerImage}
                   width={380}
                   src={`https://blog.tanyaradzwatmushonga.me/cypherhub.png`}
-                  alt="The Cypher Hub"
+                  alt="Tanya's Blog"
                 />
               </Column>
             </Row>
@@ -247,7 +247,7 @@ export const NotificationEmail = ({
               <Hr style={footerDivider} />
 
               <Text style={footerAddress}>
-                <strong>The Cypher Hub</strong>, Bulawayo, Zimbabwe
+                <strong>Tanya's Blog</strong>, Bulawayo, Zimbabwe
               </Text>
               <Text style={footerHeart}>{"<3"}</Text>
             </Section>

@@ -24,13 +24,13 @@ export const WelcomeEmail = ({ email }: WelcomeEmailProps) => (
   <Html>
     <Head />
     <Body style={main}>
-      <Preview>Welcome to The Cypher Hub!</Preview>
+      <Preview>Welcome to Tanya's Blog!</Preview>
       <Container style={container}>
         <Section style={header}>
           <Row>
             <Column style={headerContent}>
               <Heading style={headerContentTitle}>
-                Welcome to The Cypher Hub
+                Welcome to Tanya's Blog
               </Heading>
               <Text style={headerContentSubtitle}>
                 We&apos;re so glad to have you on board.
@@ -204,7 +204,7 @@ export const WelcomeEmail = ({ email }: WelcomeEmailProps) => (
         <Hr style={footerDivider} />
 
         <Text style={footerAddress}>
-          <strong>The Cypher Hub</strong>, Bulawayo, Zimbabwe
+          <strong>Tanya's Blog</strong>, Bulawayo, Zimbabwe
         </Text>
         <Text style={footerHeart}>{"<3"}</Text>
       </Section>

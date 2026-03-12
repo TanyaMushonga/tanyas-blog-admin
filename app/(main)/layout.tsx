@@ -7,8 +7,8 @@ import { cookies } from "next/headers";
 import { Toaster } from "react-hot-toast";
 
 export const metadata: Metadata = {
-  title: "Cypher Space | Dashboard",
-  description: "A Dashboard for Cypher Space",
+  title: "Tanya's Blog | Dashboard",
+  description: "A Dashboard for Tanya's Blog",
 };
 
 export default async function Layout({
@@ -30,7 +30,7 @@ export default async function Layout({
           <SidebarTrigger className="text-white" />
           <div className="flex flex-col gap-4 md:flex-row justify-between items-center md:mx-10 w-full">
             <h1 className="text-center text-xl md:text-3xl text-white font-bold">
-              The Cypher Hub Dashboard
+              Tanya's Blog Dashboard
             </h1>
           </div>
         </div>

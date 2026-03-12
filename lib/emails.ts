@@ -12,7 +12,7 @@ export const sendWelcomeEmail = async (email: string) => {
     const { data, error } = await resend.emails.send({
       from: "Tanyaradzwa T Mushonga <subscriptions@tanyaradzwatmushonga.me>",
       to: email,
-      subject: `Welcome to The CypherHub Newsletter, ${extractNameFromEmail(
+      subject: `Welcome to Tanya's Blog Newsletter, ${extractNameFromEmail(
         email
       )}`,
       react: WelcomeEmail({ email }),

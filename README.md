@@ -1,6 +1,6 @@
-# The Cypher Hub Admin
+# Tanya's Blog Admin
 
-A modern admin dashboard for **The Cypher Hub**, built with Next.js 14. This application serves as the command center for managing blog posts, newsletters, and subscribers.
+A modern admin dashboard for **Tanya's Blog**, built with Next.js 14. This application serves as the command center for managing blog posts, newsletters, and subscribers.
 
 ## 🚀 Tech Stack
 
@@ -35,8 +35,8 @@ A modern admin dashboard for **The Cypher Hub**, built with Next.js 14. This app
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/TanyaMushonga/thecypherhub-admin.git
-   cd thecypherhub-admin
+   git clone https://github.com/TanyaMushonga/tanyas-blog-admin.git
+   cd tanyas-blog-admin
    ```
 
 2. **Install dependencies**

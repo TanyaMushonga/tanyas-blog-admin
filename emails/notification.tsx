@@ -161,7 +161,7 @@ export const CommentNotificationEmail = ({
             <Hr style={footerDivider} />
 
             <Text style={footerAddress}>
-              <strong>The Cypher Hub</strong>, Bulawayo, Zimbabwe
+              <strong>Tanya's Blog</strong>, Bulawayo, Zimbabwe
             </Text>
             <Text style={footerHeart}>{"<3"}</Text>
           </Section>

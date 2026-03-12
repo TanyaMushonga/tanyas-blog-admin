@@ -26,7 +26,7 @@ export const NoteEmail = ({ htmlContent, email }: NoteEmailProps) => (
   <Html>
     <Head />
     <Body style={main}>
-      <Preview>The Cypher Hub</Preview>
+      <Preview>Tanya's Blog</Preview>
       <Container style={container}>
         <Section style={header}>
           <Row>
@@ -187,7 +187,7 @@ export const NoteEmail = ({ htmlContent, email }: NoteEmailProps) => (
         <Hr style={footerDivider} />
 
         <Text style={footerAddress}>
-          <strong>The Cypher Hub</strong>, Bulawayo, Zimbabwe
+          <strong>Tanya's Blog</strong>, Bulawayo, Zimbabwe
         </Text>
         <Text style={footerHeart}>{"<3"}</Text>
       </Section>

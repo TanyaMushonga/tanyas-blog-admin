@@ -1,6 +1,6 @@
-# Contributing to The Cypher Hub Admin
+# Contributing to Tanya's Blog Admin
 
-Thank you for considering contributing to The Cypher Hub Admin! We welcome contributions from everyone.
+Thank you for considering contributing to Tanya's Blog Admin! We welcome contributions from everyone.
 
 ## Getting Started
 
@@ -10,8 +10,8 @@ Click the "Fork" button at the top right of this repository to create your own c
 ### 2. Clone Your Fork
 Clone your forked repository to your local machine:
 ```bash
-git clone https://github.com/YOUR_USERNAME/thecypherhub-admin.git
-cd thecypherhub-admin
+git clone https://github.com/YOUR_USERNAME/tanyas-blog-admin.git
+cd tanyas-blog-admin
 ```
 
 ### 3. Create a Branch
