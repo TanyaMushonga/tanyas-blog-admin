@@ -42,7 +42,7 @@ export const NoteEmail = ({ htmlContent, email }: NoteEmailProps) => (
               <Img
                 style={headerImage}
                 width={380}
-                src={`https://blog.tanyaradzwatmushonga.me/cypherhub.png`}
+                src={`https://blog.tanyaradzwatmushonga.me/logo.webp`}
               />
             </Column>
           </Row>

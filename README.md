@@ -47,7 +47,7 @@ A modern admin dashboard for **Tanya's Blog**, built with Next.js 14. This appli
 3. **Set up environment variables**
    Create a `.env` file in the root directory and add the following:
    ```env
-   DATABASE_URL="postgresql://user:password@localhost:5432/thecypherhub"
+   DATABASE_URL="postgresql://user:password@localhost:5432/tanyas_blog"
    
    # Auth
    NEXT_PUBLIC_APP_URL="http://localhost:3000"

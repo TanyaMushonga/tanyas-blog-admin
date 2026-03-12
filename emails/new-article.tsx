@@ -59,7 +59,7 @@ export const NotificationEmail = ({
                 <Img
                   style={headerImage}
                   width={380}
-                  src={`https://blog.tanyaradzwatmushonga.me/cypherhub.png`}
+                  src={`https://blog.tanyaradzwatmushonga.me/logo.webp`}
                   alt="Tanya's Blog"
                 />
               </Column>
