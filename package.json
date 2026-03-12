@@ -78,7 +78,7 @@
   "name": "thecypherhub",
   "private": true,
   "scripts": {
-    "build": "next build",
+    "build": "prisma migrate deploy && next build",
     "dev": "next dev",
     "email": "email dev --dir ./emails",
     "postinstall": "prisma generate",

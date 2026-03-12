@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
 
     // specific to verificationTokens
     // we need to find token
-    const verificationToken = await prisma.verificationTokens.findUnique({
+    const verificationToken = await prisma.verificationToken.findUnique({
       where: { token },
     });
 
@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
     
     if (hasExpired) {
         // cleanup
-        await prisma.verificationTokens.delete({ where: { token } });
+        await prisma.verificationToken.delete({ where: { token } });
         return NextResponse.json({ error: "Token has expired" }, { status: 400 });
     }
 
@@ -50,7 +50,7 @@ export async function POST(req: NextRequest) {
     });
 
     // delete token
-    await prisma.verificationTokens.delete({
+    await prisma.verificationToken.delete({
       where: { token },
     });
 

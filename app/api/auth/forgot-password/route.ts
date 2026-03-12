@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
 
     // Save token
     // Save or update token
-    await prisma.verificationTokens.upsert({
+    await prisma.verificationToken.upsert({
       where: { email },
       update: {
         token,
