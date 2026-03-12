@@ -53,7 +53,7 @@ export const CommentNotificationEmail = ({
               <Img
                 alt="Tanya Mushonga"
                 height={48}
-                src="https://www.thecypherhub.tech/profile.jfif"
+                src="https://blog.tanyaradzwatmushonga.me/profile.jfif"
                 style={{
                   borderRadius: "9999px",
                   display: "block",
@@ -148,13 +148,13 @@ export const CommentNotificationEmail = ({
             </Text>
 
             <Link
-              href="https://www.thecypherhub.tech/unsubscribe"
+              href="https://blog.tanyaradzwatmushonga.me/unsubscribe"
               style={footerLink}
             >
               Unsubscribe{" "}
             </Link>
 
-            <Link href="https://www.thecypherhub.tech/" style={footerLink}>
+            <Link href="https://blog.tanyaradzwatmushonga.me/" style={footerLink}>
               Blog
             </Link>
 

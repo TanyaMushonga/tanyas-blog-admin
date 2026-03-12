@@ -40,7 +40,7 @@ export const WelcomeEmail = ({ email }: WelcomeEmailProps) => (
               <Img
                 style={headerImage}
                 width={380}
-                src={`https://www.thecypherhub.tech/cypherhub.png`}
+                src={`https://blog.tanyaradzwatmushonga.me/cypherhub.png`}
               />
             </Column>
           </Row>
@@ -93,7 +93,7 @@ export const WelcomeEmail = ({ email }: WelcomeEmailProps) => (
               <Img
                 alt="Tanya"
                 height={48}
-                src="https://www.thecypherhub.tech/profile.jfif"
+                src="https://blog.tanyaradzwatmushonga.me/profile.jfif"
                 style={{
                   borderRadius: "9999px",
                   display: "block",
@@ -191,13 +191,13 @@ export const WelcomeEmail = ({ email }: WelcomeEmailProps) => (
         </Text>
 
         <Link
-          href="https://www.thecypherhub.tech/unsubscribe"
+          href="https://blog.tanyaradzwatmushonga.me/unsubscribe"
           style={footerLink}
         >
           Unsubscribe{" "}
         </Link>
 
-        <Link href="https://www.thecypherhub.tech/" style={footerLink}>
+        <Link href="https://blog.tanyaradzwatmushonga.me/" style={footerLink}>
           Blog
         </Link>
 

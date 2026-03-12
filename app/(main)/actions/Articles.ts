@@ -16,7 +16,7 @@ export const sendArticleGlimpseAction = async (
     const htmlContent = `
       <h1>${articleTitle}</h1>
       <p>${articleDescription}</p>
-      <a href="https://www.thecypherhub.tech/blog/${articleSlug}">Read more...</a>
+      <a href="https://blog.tanyaradzwatmushonga.me/blog/${articleSlug}">Read more...</a>
     `;
     const subject = `New Article: ${articleTitle}`;
 

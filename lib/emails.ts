@@ -10,7 +10,7 @@ const resend = new Resend(process.env.RESEND_API_KEY!);
 export const sendWelcomeEmail = async (email: string) => {
   try {
     const { data, error } = await resend.emails.send({
-      from: "Tanyaradzwa T Mushonga <subscriptions@thecypherhub.tech>",
+      from: "Tanyaradzwa T Mushonga <subscriptions@tanyaradzwatmushonga.me>",
       to: email,
       subject: `Welcome to The CypherHub Newsletter, ${extractNameFromEmail(
         email
@@ -36,7 +36,7 @@ export const sendEmailToMyself = async (
 ) => {
   try {
     const { data, error } = await resend.emails.send({
-      from: "Tanyaradzwa T Mushonga <newsletter@thecypherhub.tech>",
+      from: "Tanyaradzwa T Mushonga <newsletter@tanyaradzwatmushonga.me>",
       to: "tanyaradzwatmushonga@gmail.com",
       subject: `${subject}`,
       react: NoteEmail({
@@ -64,7 +64,7 @@ export const sendEmailToSubscribers = async (
 ) => {
   try {
     const { data, error } = await resend.emails.send({
-      from: "Tanyaradzwa T Mushonga <newsletter@thecypherhub.tech>",
+      from: "Tanyaradzwa T Mushonga <newsletter@tanyaradzwatmushonga.me>",
       to: `${email}`,
       subject: `${subject}`,
       react: NoteEmail({ htmlContent, email }),
@@ -88,7 +88,7 @@ export const sendCommentNotification = async (
 ) => {
   try {
     const { data, error } = await resend.emails.send({
-      from: "Tanyaradzwa T Mushonga <notifications@thecypherhub.tech>",
+      from: "Tanyaradzwa T Mushonga <notifications@tanyaradzwatmushonga.me>",
       to: "tanyaradzwatmushonga@gmail.com",
       subject: `New Comment on "${articleTitle}"`,
       react: CommentNotificationEmail({
@@ -116,7 +116,7 @@ export const sendNoteBatch = async (
 ) => {
   try {
     const batchData = recipients.map((email) => ({
-      from: "Tanyaradzwa T Mushonga <newsletter@thecypherhub.tech>",
+      from: "Tanyaradzwa T Mushonga <newsletter@tanyaradzwatmushonga.me>",
       to: email,
       subject: subject,
       react: NoteEmail({ htmlContent: content, email }),
@@ -154,7 +154,7 @@ export const sendArticleNotificationBatch = async (
 ) => {
   try {
     const batchData = recipients.map((email) => ({
-      from: "Tanyaradzwa T Mushonga <newsletter@thecypherhub.tech>",
+      from: "Tanyaradzwa T Mushonga <newsletter@tanyaradzwatmushonga.me>",
       to: email,
       subject: `New: ${article.title}`,
       react: NotificationEmail({
