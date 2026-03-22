@@ -33,7 +33,7 @@ function UpdateBlog() {
     if (slug) fetchBlog();
   }, [slug]);
 
-  const handleSubmit = async (data: ArticleFormData, coverImage?: File) => {
+  const handleSubmit = async (data: ArticleFormData) => {
     setLoading(true);
     try {
       const formData = new FormData();
@@ -45,10 +45,6 @@ function UpdateBlog() {
       formData.append("keywords", JSON.stringify(data.keywords));
       formData.append("collectionId", data.collectionId || "");
       formData.append("status", data.status);
-
-      if (coverImage) {
-        formData.append("coverImgUrl", coverImage);
-      }
 
       const response = await fetch(`/api/blog/${slug}`, {
         method: "PATCH",

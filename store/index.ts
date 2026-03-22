@@ -4,7 +4,6 @@ export const useArticle = create<ArticleStore>((set) => ({
   blog: [
     {
       id: "",
-      coverImgUrl: "",
       title: "",
       description: "",
       category: "",

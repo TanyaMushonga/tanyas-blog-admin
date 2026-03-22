@@ -1,6 +1,5 @@
 declare interface Article {
   id: string;
-  coverImgUrl: string;
   title: string;
   description: string;
   category: string;
@@ -55,7 +54,6 @@ declare interface ArticleFormData {
   category: string;
   content: string;
   keywords: string[];
-  coverImgUrl?: string; // Optional for form data as it might be a File or url string handled separately
   collectionId?: string;
   status: "published" | "unpublished";
 }

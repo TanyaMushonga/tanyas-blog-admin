@@ -31,7 +31,6 @@ const CreateBlog = () => {
     content: "",
     keywords: [],
   });
-  const [blogCover, setBlogCover] = useState<File>();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [clearEditor, setClearEditor] = useState(false);
@@ -99,7 +98,6 @@ const CreateBlog = () => {
     setError("");
 
     console.log("Submitting blog content:", content);
-    console.log("Blog cover:", blogCover);
 
     if (!content.title) {
       console.log("Validation failed: Title missing");
@@ -131,9 +129,6 @@ const CreateBlog = () => {
       setError("Slug is required");
       setLoading(false);
       return;
-    } else if (!blogCover) {
-      console.log("Validation failed: Cover Image missing");
-      setError("Cover Image is required");
       setLoading(false);
       return;
     }
@@ -145,9 +140,6 @@ const CreateBlog = () => {
     formData.append("content", content.content);
     formData.append("keywords", JSON.stringify(content.keywords));
     formData.append("slug", content.slug);
-    if (blogCover) {
-      formData.append("coverImgUrl", blogCover);
-    }
 
     const response = await fetch("/api/add-blog", {
       method: "POST",
@@ -170,9 +162,7 @@ const CreateBlog = () => {
         keywords: [],
       });
       setClearEditor(true);
-      setBlogCover(undefined);
       localStorage.removeItem("blogContent");
-      localStorage.removeItem("blogCover");
     }
   };
 
@@ -255,19 +245,8 @@ const CreateBlog = () => {
               }
             ></textarea>
           </div>
-          <div className="flex flex-row w-full mb-4">
-            <label htmlFor="blog_cover" className="text-sky-300 cursor-pointer">
-              <ImageIcon className="w-10 h-10" />
-            </label>
-            <input
-              type="file"
-              accept="image/*"
-              className="hidden"
-              onChange={(e) => setBlogCover(e.target.files?.[0])}
-              ref={ref}
-              id="blog_cover"
-            />
 
+          <div className="flex flex-row w-full mb-4">
             <Sheet>
               <SheetTrigger asChild>
                 <Button

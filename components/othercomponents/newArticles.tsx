@@ -48,24 +48,14 @@ function NewArticles() {
               >
                 <Link
                   href={`/article/${article.slug}`}
-                  className="flex items-center gap-4 flex-1 overflow-hidden"
+                  className="flex flex-col min-w-0 flex-1 overflow-hidden"
                 >
-                  <div className="relative h-12 w-12 flex-shrink-0 overflow-hidden rounded-md border border-blue-800">
-                    <Image
-                      src={article?.coverImgUrl}
-                      alt={article.title}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="flex flex-col min-w-0">
-                    <p className="text-white font-medium text-base truncate group-hover:text-blue-200 transition-colors">
-                      {article.title}
-                    </p>
-                    <p className="text-slate-400 text-xs mt-0.5">
-                      {formatDate(getEffectiveDate(article)!)}
-                    </p>
-                  </div>
+                  <p className="text-white font-medium text-base truncate group-hover:text-blue-200 transition-colors">
+                    {article.title}
+                  </p>
+                  <p className="text-slate-400 text-xs mt-0.5">
+                    {formatDate(getEffectiveDate(article)!)}
+                  </p>
                 </Link>
 
                 <div className="flex items-center gap-2 ml-4">

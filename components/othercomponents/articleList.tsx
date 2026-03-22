@@ -115,29 +115,19 @@ function ArticleList() {
             >
               <Link
                 href={`/article/${article.slug}`}
-                className="flex items-start gap-4 flex-1 overflow-hidden"
+                className="flex flex-col gap-1 flex-1 min-w-0 pr-4"
               >
-                <div className="relative h-16 w-16 md:h-24 md:w-24 flex-shrink-0 overflow-hidden rounded-md border border-blue-900 mt-1">
-                  <Image
-                    src={article?.coverImgUrl}
-                    alt={article.title}
-                    fill
-                    className="object-cover"
-                  />
+                <p className="text-white font-semibold text-lg line-clamp-2 perform-layout-shift group-hover:text-blue-300 transition-colors">
+                  {article.title}
+                </p>
+                <div className="flex items-center gap-2 text-xs text-slate-400 mb-1">
+                  <span>{formatDate(getEffectiveDate(article)!)}</span>
+                  <span>•</span>
+                  <span>{article.category}</span>
                 </div>
-                <div className="flex flex-col gap-1 min-w-0 pr-4">
-                  <p className="text-white font-semibold text-lg line-clamp-2 perform-layout-shift group-hover:text-blue-300 transition-colors">
-                    {article.title}
-                  </p>
-                  <div className="flex items-center gap-2 text-xs text-slate-400 mb-1">
-                    <span>{formatDate(getEffectiveDate(article)!)}</span>
-                    <span>•</span>
-                    <span>{article.category}</span>
-                  </div>
-                  <p className="text-slate-400 text-sm line-clamp-2">
-                    {article.description}
-                  </p>
-                </div>
+                <p className="text-slate-400 text-sm line-clamp-2">
+                  {article.description}
+                </p>
               </Link>
 
               <div className="flex items-center justify-between mt-4 md:mt-0 md:gap-4 md:flex-col md:items-end border-t md:border-t-0 border-blue-900 pt-3 md:pt-0 pl-0 md:pl-4">

@@ -30,7 +30,6 @@ export async function POST(req: Request) {
     const slug = formData.get("slug") as string;
     const status = (formData.get("status") as string) || "unpublished";
     const publishedAtStr = formData.get("publishedAt") as string | null;
-    const coverImgFile = formData.get("coverImgUrl") as File | null;
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
@@ -64,15 +63,6 @@ export async function POST(req: Request) {
       );
     }
 
-    let coverImgUrl = "";
-    if (coverImgFile && coverImgFile.size > 0) {
-      const coverImgName = `blog-${slug}`;
-      const blob = await put(coverImgName, coverImgFile, {
-        access: "public",
-      });
-
-      coverImgUrl = blob.url;
-    }
 
     const readTime: string = calculateReadTime(content);
 
@@ -87,7 +77,6 @@ export async function POST(req: Request) {
       title,
       description,
       category: category as string | null,
-      coverImgUrl,
       content,
       keywords,
       slug,

@@ -97,7 +97,6 @@ export async function PATCH(req: Request) {
     const SLUG = formData.get("slug") as string;
     const status = formData.get("status") as string;
     const publishedAtStr = formData.get("publishedAt") as string | null;
-    const coverImgFile = formData.get("coverImgUrl") as File | null;
 
     const readTime = calculateReadTime(content);
 
@@ -110,24 +109,6 @@ export async function PATCH(req: Request) {
       );
     }
 
-    let coverImgUrl = blog.coverImgUrl!;
-    if (coverImgFile && coverImgFile.size > 0) {
-      if (coverImgUrl) {
-        try {
-          await del(coverImgUrl);
-        } catch (e) {
-          console.error("Failed to delete old cover image:", e);
-        }
-      }
-
-      // Upload the new image to Vercel Blob
-      const coverImgName = `blog-${SLUG}`;
-      const blob = await put(coverImgName, coverImgFile, {
-        access: "public",
-      });
-
-      coverImgUrl = blob.url;
-    }
 
     let publishedAt = blog.publishedAt;
     if (status === "published" && !blog.publishedAt) {
@@ -143,7 +124,6 @@ export async function PATCH(req: Request) {
       title,
       description,
       category: category as string | null,
-      coverImgUrl,
       content,
       readTime,
       keywords,

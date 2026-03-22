@@ -32,7 +32,7 @@ function AddArticlePage() {
     React.useState<PublishedArticleWithMetadata | null>(null);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
-  const handleSubmit = async (data: ArticleFormData, coverImage?: File) => {
+  const handleSubmit = async (data: ArticleFormData) => {
     const formData = new FormData();
     formData.append("title", data.title);
     formData.append("description", data.description);
@@ -46,10 +46,6 @@ function AddArticlePage() {
     const hasContent =
       data.content && data.content.replace(/<[^>]*>/g, "").trim().length > 0;
     formData.append("status", hasContent ? "published" : data.status);
-
-    if (coverImage) {
-      formData.append("coverImgUrl", coverImage);
-    }
 
     try {
       setIsSubmitting(true);

@@ -46,7 +46,7 @@ export default function EditArticlePage() {
     }
   }, [slug, fetchBlog]);
 
-  const handleSubmit = async (data: ArticleFormData, coverImage?: File) => {
+  const handleSubmit = async (data: ArticleFormData) => {
     try {
       setIsSubmitting(true);
       const formData = new FormData();
@@ -63,10 +63,6 @@ export default function EditArticlePage() {
       formData.append("status", hasContent ? "published" : data.status);
       if (data.collectionId) {
         formData.append("collectionId", data.collectionId);
-      }
-
-      if (coverImage) {
-        formData.append("coverImgUrl", coverImage);
       }
 
       const response = await fetch(`/api/blog/${slug}`, {

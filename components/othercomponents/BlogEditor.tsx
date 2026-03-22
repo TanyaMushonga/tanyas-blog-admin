@@ -18,7 +18,7 @@ import Image from "next/image";
 interface BlogEditorProps {
   initialData?: ArticleFormData;
   isEditing?: boolean;
-  onSubmit: (data: ArticleFormData, coverImage?: File) => Promise<void>;
+  onSubmit: (data: ArticleFormData) => Promise<void>;
   loading?: boolean;
 }
 
@@ -39,8 +39,6 @@ const BlogEditor: React.FC<BlogEditorProps> = ({
     status: "unpublished",
   });
   const [collections, setCollections] = useState<Collection[]>([]);
-  const [blogCover, setBlogCover] = useState<File>();
-  const [coverPreview, setCoverPreview] = useState<string | null>(null);
   const [keywordInput, setKeywordInput] = useState("");
   const [error, setError] = useState("");
   const [clearEditor, setClearEditor] = useState(false);
@@ -54,9 +52,6 @@ const BlogEditor: React.FC<BlogEditorProps> = ({
   useEffect(() => {
     if (initialData) {
       setContent(initialData);
-      if (initialData.coverImgUrl) {
-        setCoverPreview(initialData.coverImgUrl);
-      }
     }
   }, [initialData]);
 
@@ -108,48 +103,6 @@ const BlogEditor: React.FC<BlogEditorProps> = ({
     setContent((prev) => ({ ...prev, content: newContent }));
   };
 
-  const handleCoverChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files?.[0]) {
-      const file = e.target.files[0];
-      setBlogCover(file);
-
-      // Create preview
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setCoverPreview(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-
-      // Validate dimensions
-      try {
-        const isValid = await validateImageDimensions(file);
-        if (!isValid) {
-          setError("The blog cover must be 1200x630 pixels");
-        } else {
-          setError("");
-        }
-      } catch {
-        setError("Failed to validate image dimensions");
-      }
-    }
-  };
-
-  const validateImageDimensions = (file: File): Promise<boolean> => {
-    return new Promise((resolve, reject) => {
-      const img = new window.Image();
-      img.src = URL.createObjectURL(file);
-      img.onload = () => {
-        if (img.width === 1200 && img.height === 630) {
-          resolve(true);
-        } else {
-          resolve(false);
-        }
-      };
-      img.onerror = () => {
-        reject(new Error("Failed to load image"));
-      };
-    });
-  };
 
   const handleKeywordInput = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && keywordInput.trim()) {
@@ -189,17 +142,9 @@ const BlogEditor: React.FC<BlogEditorProps> = ({
     if (!content.keywords || content.keywords.length === 0)
       return setError("Keywords are required");
     if (!content.slug) return setError("Slug is required");
-    if (!isEditing && !blogCover) return setError("Cover Image is required");
-
-    if (blogCover) {
-      const isValidImage = await validateImageDimensions(blogCover);
-      if (!isValidImage) {
-        return setError("The blog cover must be 1200x630 pixels");
-      }
-    }
 
     try {
-      await onSubmit(content, blogCover);
+      await onSubmit(content);
       if (!isEditing) {
         // Clear form after successful submission for new articles
         setContent({
@@ -213,8 +158,6 @@ const BlogEditor: React.FC<BlogEditorProps> = ({
           status: "unpublished",
         });
         setClearEditor(true);
-        setBlogCover(undefined);
-        setCoverPreview(null);
         localStorage.removeItem("blogContent");
         // Reset clearEditor trigger after a brief delay
         setTimeout(() => setClearEditor(false), 100);
@@ -450,41 +393,6 @@ const BlogEditor: React.FC<BlogEditorProps> = ({
               </div>
             </div>
 
-            {/* Cover Image */}
-            <div className="space-y-2">
-              <label className="text-sm font-medium text-slate-300 block">
-                Cover Image (1200x630)
-              </label>
-              <div className="flex items-center gap-4">
-                <label
-                  htmlFor="blog_cover"
-                  className="cursor-pointer flex items-center justify-center w-full h-32 bg-blue-900/30 border-2 border-dashed border-blue-800 rounded-lg hover:bg-blue-900/50 hover:border-blue-700 transition-colors"
-                >
-                  {coverPreview ? (
-                    <Image
-                      width={1200}
-                      height={630}
-                      src={coverPreview}
-                      alt="Cover Preview"
-                      className="h-full w-full object-cover rounded-lg"
-                    />
-                  ) : (
-                    <div className="flex flex-col items-center text-slate-400">
-                      <ImageIcon className="w-8 h-8 mb-2" />
-                      <span className="text-xs">Click to upload</span>
-                    </div>
-                  )}
-                </label>
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  onChange={handleCoverChange}
-                  ref={ref}
-                  id="blog_cover"
-                />
-              </div>
-            </div>
 
             {/* Actions */}
             <div className="pt-4 border-t border-blue-900 flex gap-3">

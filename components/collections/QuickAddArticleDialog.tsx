@@ -42,27 +42,8 @@ export function QuickAddArticleDialog({
   const [newArtDesc, setNewArtDesc] = useState("");
   const [newArtKeywords, setNewArtKeywords] = useState<string[]>([]);
   const [keywordInput, setKeywordInput] = useState("");
-  const [newArtCover, setNewArtCover] = useState<File | null>(null);
-  const [newArtCoverPreview, setNewArtCoverPreview] = useState<string | null>(
-    null
-  );
   const [newArtDate, setNewArtDate] = useState("");
 
-  const validateImage = (file: File): Promise<boolean> => {
-    return new Promise((resolve) => {
-      const img = new window.Image();
-      img.onload = () => {
-        if (img.width < 1200 || img.height < 630) {
-          toast.error("Image too small. Minimum 1200x630 required.");
-          resolve(false);
-        } else {
-          resolve(true);
-        }
-      };
-      img.onerror = () => resolve(false);
-      img.src = URL.createObjectURL(file);
-    });
-  };
 
   const handleKeywordAdd = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if ((e.key === "Enter" || e.key === ",") && keywordInput.trim()) {
@@ -88,11 +69,6 @@ export function QuickAddArticleDialog({
       return;
     }
 
-    if (newArtCover) {
-      const isValid = await validateImage(newArtCover);
-      if (!isValid) return;
-    }
-
     setAddLoading(true);
     try {
       const formData = new FormData();
@@ -111,7 +87,6 @@ export function QuickAddArticleDialog({
       formData.append("collectionId", collectionId);
       if (collectionCategory) formData.append("category", collectionCategory);
       if (newArtDate) formData.append("publishedAt", newArtDate);
-      if (newArtCover) formData.append("coverImgUrl", newArtCover);
       formData.append("content", "");
 
       await axios.post("/api/add-blog", formData);
@@ -137,8 +112,6 @@ export function QuickAddArticleDialog({
     setNewArtDesc("");
     setNewArtKeywords([]);
     setKeywordInput("");
-    setNewArtCover(null);
-    setNewArtCoverPreview(null);
     setNewArtDate("");
     setAddSuccess(false);
     setBackendError(null);
@@ -188,17 +161,6 @@ export function QuickAddArticleDialog({
 
             <div className="w-full max-w-sm mx-auto space-y-6">
               <Card className="bg-slate-950/40 border-slate-800 text-left overflow-hidden shadow-xl backdrop-blur-md">
-                {newArtCoverPreview && (
-                  <div className="h-40 w-full relative group">
-                    <Image
-                      src={newArtCoverPreview}
-                      alt="Preview"
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 to-transparent" />
-                  </div>
-                )}
                 <CardContent className="p-5">
                   <h4 className="text-white font-semibold text-base truncate">
                     {newArtTitle}
@@ -330,44 +292,6 @@ export function QuickAddArticleDialog({
                 onKeyDown={handleKeywordAdd}
                 className="bg-blue-950/50 border-blue-900 focus:ring-blue-500 placeholder:text-slate-500"
                 placeholder="Type keyword and press Enter"
-              />
-            </div>
-            <div className="space-y-1.5">
-              <Label htmlFor="artCover">Cover Image (1200x630)</Label>
-              {newArtCoverPreview && (
-                <div className="relative w-full h-32 rounded-lg overflow-hidden mb-2 border border-blue-900">
-                  <Image
-                    src={newArtCoverPreview}
-                    alt="Preview"
-                    fill
-                    className="object-cover"
-                  />
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setNewArtCover(null);
-                      setNewArtCoverPreview(null);
-                    }}
-                    className="absolute top-2 right-2 bg-black/60 p-1 rounded-full text-white hover:bg-black/80"
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
-                </div>
-              )}
-              <Input
-                id="artCover"
-                type="file"
-                accept="image/*"
-                onChange={(e) => {
-                  const file = e.target.files?.[0] || null;
-                  setNewArtCover(file);
-                  if (file) {
-                    setNewArtCoverPreview(URL.createObjectURL(file));
-                  } else {
-                    setNewArtCoverPreview(null);
-                  }
-                }}
-                className="bg-blue-950/50 border-blue-900 focus:ring-blue-500 text-xs file:text-slate-400"
               />
             </div>
             <DialogFooter>

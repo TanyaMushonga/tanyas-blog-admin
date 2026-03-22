@@ -33,7 +33,7 @@ export default function UpdateArticlePage() {
     }
   }, [slug]);
 
-  const handleSubmit = async (data: ArticleFormData, coverImage?: File) => {
+  const handleSubmit = async (data: ArticleFormData) => {
     const formData = new FormData();
     formData.append("title", data.title);
     formData.append("slug", data.slug);
@@ -42,10 +42,6 @@ export default function UpdateArticlePage() {
     formData.append("content", data.content);
     formData.append("keywords", JSON.stringify(data.keywords));
     
-    if (coverImage) {
-      formData.append("coverImgUrl", coverImage);
-    }
-
     const response = await fetch(`/api/blog/${slug}`, {
       method: "PATCH",
       body: formData,

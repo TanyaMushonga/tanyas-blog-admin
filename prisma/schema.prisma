@@ -37,7 +37,6 @@ model Articles {
   title        String
   description  String
   category     String?
-  coverImgUrl  String?
   content      String
   readTime     String
   createdAt    DateTime    @default(now())
