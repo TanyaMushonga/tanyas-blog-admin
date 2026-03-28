@@ -155,18 +155,37 @@ const BlogEditor: React.FC<BlogEditorProps> = ({
     e.preventDefault();
     setError("");
 
-    if (!content.title) return setError("Title is required");
-    if (content.title.length < 50 || content.title.length > 60) {
+    // Fail-safe: Split any keywords that might have been added as single strings containing commas
+    let finalKeywords = (content.keywords || []).flatMap((k) =>
+      k.split(/[,，;；]/).map((s) => s.trim())
+    ).filter(k => k !== "");
+
+    // Also process any pending text in keywordInput
+    const pendingInput = keywordInput.trim();
+    if (pendingInput) {
+      pendingInput.split(/[,，;；]/).forEach(k => {
+        const trimmed = k.trim();
+        if (trimmed && !finalKeywords.includes(trimmed)) {
+          finalKeywords.push(trimmed);
+        }
+      });
+    }
+
+    const updatedContent = { ...content, keywords: finalKeywords };
+
+
+    if (!updatedContent.title) return setError("Title is required");
+    if (updatedContent.title.length < 50 || updatedContent.title.length > 60) {
       return setError("Title must be between 50 and 60 characters");
     }
-    if (!content.collectionId && !content.category)
+    if (!updatedContent.collectionId && !updatedContent.category)
       return setError("Category is required");
-    if (!content.description) return setError("Description is required");
+    if (!updatedContent.description) return setError("Description is required");
     const isContentEmpty =
-      !content.content ||
-      content.content.replace(/<[^>]*>/g, "").trim().length === 0;
+      !updatedContent.content ||
+      updatedContent.content.replace(/<[^>]*>/g, "").trim().length === 0;
     if (isContentEmpty) return setError("Content is required");
-    if (!content.keywords || content.keywords.length === 0)
+    if (!updatedContent.keywords || updatedContent.keywords.length === 0)
       return setError("Keywords are required");
     if (!content.slug) return setError("Slug is required");
 

@@ -125,7 +125,24 @@ const CreateBlog = () => {
     setLoading(true);
     setError("");
 
-    console.log("Submitting blog content:", content);
+    // Fail-safe: Split any keywords that might have been added as single strings containing commas
+    let finalKeywords = (content.keywords || []).flatMap((k) =>
+      k.split(/[,，;；]/).map((s) => s.trim())
+    ).filter(k => k !== "");
+
+    // Also process any pending text in keywordInput
+    const pendingInput = keywordInput.trim();
+    if (pendingInput) {
+      pendingInput.split(/[,，;；]/).forEach(k => {
+        const trimmed = k.trim();
+        if (trimmed && !finalKeywords.includes(trimmed)) {
+          finalKeywords.push(trimmed);
+        }
+      });
+    }
+
+    const finalContent = { ...content, keywords: finalKeywords };
+    console.log("Submitting blog content:", finalContent);
 
     if (!content.title) {
       console.log("Validation failed: Title missing");
@@ -162,12 +179,12 @@ const CreateBlog = () => {
     }
 
     const formData = new FormData();
-    formData.append("title", content.title);
-    formData.append("description", content.description);
-    formData.append("category", content.category);
-    formData.append("content", content.content);
-    formData.append("keywords", JSON.stringify(content.keywords));
-    formData.append("slug", content.slug);
+    formData.append("title", finalContent.title);
+    formData.append("description", finalContent.description);
+    formData.append("category", finalContent.category);
+    formData.append("content", finalContent.content);
+    formData.append("keywords", JSON.stringify(finalKeywords));
+    formData.append("slug", finalContent.slug);
 
     const response = await fetch("/api/add-blog", {
       method: "POST",

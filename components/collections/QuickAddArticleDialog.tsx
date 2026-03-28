@@ -106,7 +106,23 @@ export function QuickAddArticleDialog({
             .replace(/[^\w-]+/g, "")
       );
       formData.append("description", newArtDesc);
-      formData.append("keywords", JSON.stringify(newArtKeywords));
+      // Fail-safe: Split any keywords that might have been added as single strings containing commas
+      const finalKeywords = newArtKeywords.flatMap((k) =>
+        k.split(/[,，;；]/).map((s) => s.trim())
+      ).filter(k => k !== "");
+
+      // Also process any pending text in keywordInput
+      const pendingInput = keywordInput.trim();
+      if (pendingInput) {
+        pendingInput.split(/[,，;；]/).forEach(k => {
+          const trimmed = k.trim();
+          if (trimmed && !finalKeywords.includes(trimmed)) {
+            finalKeywords.push(trimmed);
+          }
+        });
+      }
+
+      formData.append("keywords", JSON.stringify(finalKeywords));
       formData.append("status", "unpublished");
       formData.append("collectionId", collectionId);
       if (collectionCategory) formData.append("category", collectionCategory);
