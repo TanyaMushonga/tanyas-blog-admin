@@ -48,9 +48,14 @@ export function QuickAddArticleDialog({
   const handleKeywordAdd = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if ((e.key === "Enter" || e.key === ",") && keywordInput.trim()) {
       e.preventDefault();
-      const tag = keywordInput.trim().replace(/,$/, "");
-      if (tag && !newArtKeywords.includes(tag)) {
-        setNewArtKeywords([...newArtKeywords, tag]);
+      // Split by commas, trim each tag, removing empty strings and duplicates
+      const tags = keywordInput
+        .split(",")
+        .map((tag) => tag.trim())
+        .filter((tag) => tag !== "" && !newArtKeywords.includes(tag));
+
+      if (tags.length > 0) {
+        setNewArtKeywords([...newArtKeywords, ...tags]);
       }
       setKeywordInput("");
     }
@@ -291,7 +296,7 @@ export function QuickAddArticleDialog({
                 onChange={(e) => setKeywordInput(e.target.value)}
                 onKeyDown={handleKeywordAdd}
                 className="bg-blue-950/50 border-blue-900 focus:ring-blue-500 placeholder:text-slate-500"
-                placeholder="Type keyword and press Enter"
+                placeholder="Type keyword(s) separated by commas and press Enter"
               />
             </div>
             <DialogFooter>
