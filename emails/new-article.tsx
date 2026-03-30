@@ -55,14 +55,6 @@ export const NotificationEmail = ({
                   Get expert tips, deep dives in software development.
                 </Text>
               </Column>
-              <Column style={headerImageContainer}>
-                <Img
-                  style={headerImage}
-                  width={380}
-                  src={`https://blog.tanyaradzwatmushonga.me/logo.webp`}
-                  alt="Tanya's Blog"
-                />
-              </Column>
             </Row>
           </Section>
 
@@ -240,7 +232,10 @@ export const NotificationEmail = ({
                 Unsubscribe{" "}
               </Link>
 
-              <Link href="https://blog.tanyaradzwatmushonga.me/" style={footerLink}>
+              <Link
+                href="https://blog.tanyaradzwatmushonga.me/"
+                style={footerLink}
+              >
                 Blog
               </Link>
 

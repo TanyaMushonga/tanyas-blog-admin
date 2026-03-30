@@ -38,13 +38,6 @@ export const NoteEmail = ({ htmlContent, email }: NoteEmailProps) => (
                 Get expert tips, deep dives in software development.
               </Text>
             </Column>
-            <Column style={headerImageContainer}>
-              <Img
-                style={headerImage}
-                width={380}
-                src={`https://blog.tanyaradzwatmushonga.me/logo.webp`}
-              />
-            </Column>
           </Row>
         </Section>
 

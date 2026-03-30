@@ -36,13 +36,6 @@ export const WelcomeEmail = ({ email }: WelcomeEmailProps) => (
                 We&apos;re so glad to have you on board.
               </Text>
             </Column>
-            <Column style={headerImageContainer}>
-              <Img
-                style={headerImage}
-                width={380}
-                src={`https://blog.tanyaradzwatmushonga.me/logo.webp`}
-              />
-            </Column>
           </Row>
         </Section>
 
