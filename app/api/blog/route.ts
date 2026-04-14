@@ -1,7 +1,4 @@
 import prisma from "../../../lib/prisma";
-import NodeCache from "node-cache";
-
-const cache = new NodeCache({ stdTTL: 604800 });
 
 export async function GET(request: Request) {
   try {
@@ -9,18 +6,6 @@ export async function GET(request: Request) {
     const page = parseInt(url.searchParams.get("page") || "1", 10);
     const pageSize = parseInt(url.searchParams.get("page_size") || "10", 10);
     const search = url.searchParams.get("search") || "";
-
-    const cacheKey = `blogs-${page}-${pageSize}-${search}`;
-    const cachedResponse = cache.get(cacheKey);
-
-    if (cachedResponse) {
-      return new Response(JSON.stringify(cachedResponse), {
-        headers: {
-          "Content-Type": "application/json",
-          "Cache-Control": "s-maxage=604800, stale-while-revalidate",
-        },
-      });
-    }
 
     const skip = (page - 1) * pageSize;
     const take = pageSize;
@@ -65,12 +50,9 @@ export async function GET(request: Request) {
       },
     };
 
-    cache.set(cacheKey, responsePayload);
-
     return new Response(JSON.stringify(responsePayload), {
       headers: {
         "Content-Type": "application/json",
-        "Cache-Control": "s-maxage=604800, stale-while-revalidate", // Cache for 1 week
       },
     });
   } catch (error) {

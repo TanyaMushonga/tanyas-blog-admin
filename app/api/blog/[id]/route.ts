@@ -16,16 +16,18 @@ export async function GET(req: Request) {
       });
     }
 
-    const where: { slug: string; status?: string } = {
+    const where: any = {
       slug: slug,
     };
 
-    // If not logged in, only show published articles
+    // If it looks like a UUID, we should also try to search by ID if slug search fails
+    const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(slug);
+
     if (!loggedInUser) {
       where.status = "published";
     }
 
-    const blog = await prisma.articles.findFirst({
+    let blog = await prisma.articles.findFirst({
       where,
       include: {
         comments: {
@@ -35,6 +37,24 @@ export async function GET(req: Request) {
         },
       },
     });
+
+    // If not found by slug and it's a UUID, try by ID
+    if (!blog && isUUID) {
+        const whereById: any = { id: slug };
+        if (!loggedInUser) {
+            whereById.status = "published";
+        }
+        blog = await prisma.articles.findFirst({
+            where: whereById,
+            include: {
+                comments: {
+                    orderBy: {
+                        createdAt: "desc",
+                    },
+                },
+            },
+        });
+    }
 
     if (!blog) {
       return new Response(JSON.stringify({ message: "Blog not found" }), {

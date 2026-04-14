@@ -14,6 +14,8 @@ import BlogPreview from "./blogPreview";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
+import { Switch } from "../ui/switch";
+import { Label } from "../ui/label";
 
 interface BlogEditorProps {
   initialData?: ArticleFormData;
@@ -440,6 +442,28 @@ const BlogEditor: React.FC<BlogEditorProps> = ({
               </div>
             </div>
 
+
+            {/* Status Toggle */}
+            <div className="flex items-center justify-between p-3 bg-blue-900/30 rounded-md border border-blue-800">
+              <div className="space-y-0.5">
+                <Label htmlFor="status" className="text-sm font-medium text-slate-300">
+                  Publication Status
+                </Label>
+                <div className="text-xs text-slate-500">
+                  {content.status === "published" ? "Publicly visible" : "Hidden from blog"}
+                </div>
+              </div>
+              <Switch
+                id="status"
+                checked={content.status === "published"}
+                onCheckedChange={(checked) =>
+                  setContent((prev) => ({
+                    ...prev,
+                    status: checked ? "published" : "unpublished",
+                  }))
+                }
+              />
+            </div>
 
             {/* Actions */}
             <div className="pt-4 border-t border-blue-900 flex gap-3">

@@ -43,7 +43,6 @@
     "lucide-react": "^0.428.0",
     "next": "^16.1.6",
     "nextjs-cors": "^2.2.0",
-    "node-cache": "^5.1.2",
     "postcss": "^8",
     "quill": "^2.0.2",
     "quill-table": "^1.0.0",

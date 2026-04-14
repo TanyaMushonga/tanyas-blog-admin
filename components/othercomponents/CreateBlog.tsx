@@ -126,14 +126,14 @@ const CreateBlog = () => {
     setError("");
 
     // Fail-safe: Split any keywords that might have been added as single strings containing commas
-    let finalKeywords = (content.keywords || []).flatMap((k) =>
-      k.split(/[,，;；]/).map((s) => s.trim())
-    ).filter(k => k !== "");
+    let finalKeywords = (content.keywords || [])
+      .flatMap((k) => k.split(/[,，;；]/).map((s) => s.trim()))
+      .filter((k) => k !== "");
 
     // Also process any pending text in keywordInput
     const pendingInput = keywordInput.trim();
     if (pendingInput) {
-      pendingInput.split(/[,，;；]/).forEach(k => {
+      pendingInput.split(/[,，;；]/).forEach((k) => {
         const trimmed = k.trim();
         if (trimmed && !finalKeywords.includes(trimmed)) {
           finalKeywords.push(trimmed);
