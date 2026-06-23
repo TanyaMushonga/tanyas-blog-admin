@@ -14,6 +14,17 @@ export async function POST(req: Request) {
       );
     }
 
+    const validRecipients = recipients.filter((email) => {
+      return typeof email === "string" && email.trim() !== "" && email.includes("@");
+    });
+
+    if (validRecipients.length === 0) {
+      return NextResponse.json(
+        { error: "No valid recipients found" },
+        { status: 400 }
+      );
+    }
+
     if (type === "note") {
       if (!subject || !content) {
         return NextResponse.json(
@@ -21,7 +32,7 @@ export async function POST(req: Request) {
           { status: 400 }
         );
       }
-      await sendNoteBatch(recipients, subject, content);
+      await sendNoteBatch(validRecipients, subject, content);
 
       // Only update stats if we have a valid noteId (i.e., not a test email)
       if (noteId && typeof noteId === "string" && noteId.length > 0) {
@@ -42,7 +53,7 @@ export async function POST(req: Request) {
           { status: 400 }
         );
       }
-      await sendArticleNotificationBatch(recipients, article);
+      await sendArticleNotificationBatch(validRecipients, article);
     } else {
       return NextResponse.json(
         { error: "Invalid email type" },
