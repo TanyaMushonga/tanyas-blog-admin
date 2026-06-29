@@ -73,6 +73,22 @@ export async function PATCH(req: Request) {
 
     const updatedData = await req.json();
 
+    if (updatedData.email !== undefined) {
+      if (typeof updatedData.email !== "string") {
+        return new Response(JSON.stringify({ error: "Invalid email format" }), {
+          status: 400,
+        });
+      }
+      updatedData.email = updatedData.email.trim();
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+      if (!emailRegex.test(updatedData.email)) {
+        return new Response(
+          JSON.stringify({ error: "Please provide a valid email address." }),
+          { status: 400 }
+        );
+      }
+    }
+
     const updatedsubscriber = await prisma.subscribers.update({
       where: { id: id },
       data: updatedData,

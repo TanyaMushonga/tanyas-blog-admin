@@ -14,9 +14,12 @@ export async function POST(req: Request) {
       );
     }
 
-    const validRecipients = recipients.filter((email) => {
-      return typeof email === "string" && email.trim() !== "" && email.includes("@");
-    });
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+    const nameEmailRegex = /^[^<>]*<[^\s@<>]+@[^\s@<>]+\.[a-zA-Z]{2,}>$/;
+
+    const validRecipients = recipients
+      .map((email) => (typeof email === "string" ? email.trim() : ""))
+      .filter((email) => emailRegex.test(email) || nameEmailRegex.test(email));
 
     if (validRecipients.length === 0) {
       return NextResponse.json(

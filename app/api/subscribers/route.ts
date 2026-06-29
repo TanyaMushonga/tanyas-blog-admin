@@ -35,14 +35,23 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
     const { email } = body;
-    if (!email) {
+    if (!email || typeof email !== "string") {
       return new Response(JSON.stringify({ error: "The email is required" }), {
         status: 400,
       });
     }
 
+    const trimmedEmail = email.trim();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(trimmedEmail)) {
+      return new Response(
+        JSON.stringify({ error: "Please provide a valid email address." }),
+        { status: 400 }
+      );
+    }
+
     const emailExist = await prisma.subscribers.findUnique({
-      where: { email },
+      where: { email: trimmedEmail },
     });
 
     if (emailExist) {
@@ -54,7 +63,7 @@ export async function POST(req: Request) {
       );
     }
     const data = {
-      email,
+      email: trimmedEmail,
     };
 
     await prisma.subscribers.create({
@@ -62,7 +71,7 @@ export async function POST(req: Request) {
     });
 
     // Send welcome email
-    await sendWelcomeEmail(email);
+    await sendWelcomeEmail(trimmedEmail);
 
     return new Response(
       JSON.stringify({
